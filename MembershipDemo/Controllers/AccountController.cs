@@ -83,18 +83,21 @@ namespace MembershipDemo.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                try
+                MembershipCreateStatus createStatus;
+                _membership.CreateUser(model.UserName, model.Password,
+                null, null, null, true,
+                null, out createStatus);
+                if (createStatus == MembershipCreateStatus.Success)
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    FormsAuthentication.SetAuthCookie(model.UserName,
+                    false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
-                catch (MembershipCreateUserException e)
+                else
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
