@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using MembershipDemo.Filters;
 using MembershipDemo.Models;
+using MembershipDemo.Models.Membership;
 
 namespace MembershipDemo.Controllers
 {
@@ -17,6 +18,12 @@ namespace MembershipDemo.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        private CustomMembershipProvider _membership;
+        public AccountController()
+        {
+            _membership = new CustomMembershipProvider();
+        }
+
         //
         // GET: /Account/Login
 
