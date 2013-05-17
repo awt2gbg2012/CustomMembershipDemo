@@ -73,10 +73,13 @@ namespace MembershipDemo.Models.Membership
 
         public override bool ValidateUser(string username, string password)
         {
-            string sha1Pswd = GetMD5Hash(password);
-            User user = new User();
-            UserObj userObj = user.GetUserObjByUserName(username, sha1Pswd);
-            if (userObj != null)
+            IAppUserRepository userRepo = new AppUserRepository();
+            var user = userRepo.FindAll(u => u.Username == username)
+                        .FirstOrDefault();
+            if (user == null || string.IsNullOrEmpty(user.Salt))
+                return false;
+            string bcryptHash = GetBcryptHash(password, user.Salt);
+            if (bcryptHash == user.Password)
                 return true;
             return false;
         }
