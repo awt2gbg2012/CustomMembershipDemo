@@ -15,7 +15,6 @@ using MembershipDemo.Models.Membership;
 namespace MembershipDemo.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private CustomMembershipProvider _membership;
