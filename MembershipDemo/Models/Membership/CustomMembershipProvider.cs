@@ -54,18 +54,20 @@ namespace MembershipDemo.Models.Membership
         }
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            User userRep = new User();
-            UserObj user = userRep.GetAllUsers().SingleOrDefault
-                    (u => u.UserName == username);
+            IAppUserRepository userRepo = new AppUserRepository();
+            var user = userRepo.FindAll(u => u.Username == username)
+            .FirstOrDefault();
             if (user != null)
             {
-                MembershipUser memUser = new MembershipUser("CustomMembershipProvider",
-                                               username, user.UserID, user.UserEmailAddress,
-                                               string.Empty, string.Empty,
-                                               true, false, DateTime.MinValue,
-                                               DateTime.MinValue,
-                                               DateTime.MinValue,
-                                               DateTime.Now, DateTime.Now);
+                MembershipUser memUser = new MembershipUser(
+                "CustomMembershipProvider",
+                username, user.ID,
+                user.Email,
+                string.Empty, string.Empty,
+                true, false, DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.Now, DateTime.Now);
                 return memUser;
             }
             return null;
