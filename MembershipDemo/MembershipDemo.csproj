@@ -173,7 +173,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Contexts\EFDbContext.cs" />
+    <Compile Include="Models\Entities\Abstract\IEntity.cs" />
+    <Compile Include="Models\Entities\AppUser.cs" />
     <Compile Include="Models\Membership\CustomMembershipController.cs" />
+    <Compile Include="Models\Repositories\Abstract\IRepository.cs" />
+    <Compile Include="Models\Repositories\AppUserRepository.cs" />
+    <Compile Include="Models\Repositories\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
