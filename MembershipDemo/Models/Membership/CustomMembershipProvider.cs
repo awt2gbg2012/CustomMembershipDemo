@@ -93,16 +93,9 @@ namespace MembershipDemo.Models.Membership
             get { return false; }
         }
 
-        public static string GetMD5Hash(string value)
+        public static string GetBcryptHash(string value, string salt)
         {
-            MD5 md5Hasher = MD5.Create();
-            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(value));
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
+            return DevOne.Security.Cryptography.BCrypt.BCryptHelper.HashPassword(value, salt);
         }
 
         // Change these?
