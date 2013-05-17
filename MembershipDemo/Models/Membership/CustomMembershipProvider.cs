@@ -134,5 +134,83 @@ namespace MembershipDemo.Models.Membership
             return userRepo.FindAll(u => u.Email == email)
             .Select(u => u.Username).FirstOrDefault();
         }
+
+        // Not Implemented:
+
+        public override string PasswordStrengthRegularExpression
+        { get { throw new NotImplementedException(); } }
+
+        public override MembershipUserCollection GetAllUsers(int pageIndex,
+                            int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+            //IAppUserRepository userRepo = new AppUserRepository();
+            //return userRepo.FindAll().Select(u => new MembershipUser("CustomMembershipProvider",
+            //                                   u.UserName, u.ID, u.UserEmailAddress,
+            //                                   string.Empty, string.Empty,
+            //                                   true, false, DateTime.MinValue,
+            //                                   DateTime.MinValue,
+            //                                   DateTime.MinValue,
+            //                                   DateTime.Now, DateTime.Now));
+        }
+        public override MembershipUserCollection FindUsersByEmail(
+            string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+        }
+        public override MembershipUserCollection FindUsersByName(
+            string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ChangePassword(string username,
+                        string oldPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ChangePasswordQuestionAndAnswer(string username,
+            string password, string newPasswordQuestion, string newPasswordAnswer)
+        {
+            throw new NotImplementedException();
+        }
+        public override int GetNumberOfUsersOnline()
+        {
+            throw new NotImplementedException();
+        }
+        public override string GetPassword(string username, string answer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ResetPassword(string username, string answer)
+        {
+            throw new NotImplementedException();
+        }
+        public override bool UnlockUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateUser(MembershipUser user)
+        {
+            throw new NotImplementedException();
+        }
+        public override MembershipUser GetUser(object providerUserKey
+                                , bool userIsOnline)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Not Used:
+
+        //protected virtual byte[] DecryptPassword(byte[] encodedPassword);
+
+        //[TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
+        //protected virtual byte[] EncryptPassword(byte[] password);
+
+        //protected virtual byte[] EncryptPassword(byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode);
+
     }
 }

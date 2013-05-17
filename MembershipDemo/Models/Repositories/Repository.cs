@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using MembershipDemo.Models.Contexts;
 using MembershipDemo.Models.Entities.Abstract;
 using MembershipDemo.Models.Repositories.Abstract;
 
