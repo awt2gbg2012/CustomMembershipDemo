@@ -1,0 +1,24 @@
+﻿#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio Files
+[Oo]bj
+[Bb]in
+[Tt]estResults
+*.user
+*.suo
+*.[Cc]ache
+*.bak
+*.log
+*.Publish.xml
+*.testsettings
+*.trx
+*.vsmdi
+
+#Ignore private folder
+/Private/
+
+#NuGet
+packages/
+!NuGet.exe
