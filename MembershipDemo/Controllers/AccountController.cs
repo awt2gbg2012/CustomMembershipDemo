@@ -42,11 +42,11 @@ namespace MembershipDemo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && _membership.ValidateUser(model.UserName,model.Password))
             {
+                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                 return RedirectToLocal(returnUrl);
             }
-
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
@@ -59,8 +59,7 @@ namespace MembershipDemo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
-
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
