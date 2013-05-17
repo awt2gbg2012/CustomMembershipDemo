@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using MembershipDemo.Models.Entities;
 using MembershipDemo.Models.Repositories;
 
 namespace MembershipDemo.Models.Membership
@@ -33,16 +34,15 @@ namespace MembershipDemo.Models.Membership
 
             if (user == null)
             {
-                UserObj userObj = new UserObj();
-                userObj.UserName = username;
-                userObj.Password = GetSHA1Hash(password);
-                userObj.UserEmailAddress = email;
-
-                User userRep = new User();
-                userRep.RegisterUser(userObj);
-
+                AppUser appUser = new AppUser();
+                appUser.Username = username;
+                appUser.Salt =
+                DevOne.Security.Cryptography.BCrypt.BCryptHelper.GenerateSalt();
+                appUser.Password = GetBcryptHash(password, appUser.Salt);
+                appUser.Email = email;
+                IAppUserRepository userRepo = new AppUserRepository();
+                userRepo.Add(appUser);
                 status = MembershipCreateStatus.Success;
-
                 return GetUser(username, true);
             }
             else
