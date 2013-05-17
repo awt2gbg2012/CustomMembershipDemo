@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using MembershipDemo.Models.Repositories;
 
 namespace MembershipDemo.Models.Membership
 {
@@ -102,6 +103,36 @@ namespace MembershipDemo.Models.Membership
                 sBuilder.Append(data[i].ToString("x2"));
             }
             return sBuilder.ToString();
+        }
+
+        // Change these?
+        public override MembershipPasswordFormat PasswordFormat
+        { get { return MembershipPasswordFormat.Hashed; } }
+        public override string ApplicationName { get; set; }
+        public override bool EnablePasswordReset { get { return false; } }
+        public override bool EnablePasswordRetrieval { get { return false; } }
+        public override int MaxInvalidPasswordAttempts { get { return 15; } }
+        public override int MinRequiredNonAlphanumericCharacters { get { return 0; } }
+        public override int PasswordAttemptWindow { get { return 15; } }
+        public override bool RequiresQuestionAndAnswer { get { return false; } }
+        public override bool DeleteUser(string username, bool deleteAllRelatedData)
+        {
+            IAppUserRepository userRepo = new AppUserRepository();
+            try
+            {
+                userRepo.DeleteUserByUserName(username);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public override string GetUserNameByEmail(string email)
+        {
+            IAppUserRepository userRepo = new AppUserRepository();
+            return userRepo.FindAll(u => u.Email == email)
+            .Select(u => u.Username).FirstOrDefault();
         }
     }
 }

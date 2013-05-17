@@ -9,9 +9,17 @@ namespace MembershipDemo.Models.Repositories
 {
     public interface IAppUserRepository : IRepository<AppUser>
     {
+        void DeleteUserByUserName(string Username);
     }
+
     public class AppUserRepository : Repository<AppUser>, IAppUserRepository
     {
         public AppUserRepository() : base() { }
+
+        public void DeleteUserByUserName(string Username)
+        {
+            var user = FindAll(u => u.Username == Username).FirstOrDefault();
+            Delete(user);
+        }
     }
 }
